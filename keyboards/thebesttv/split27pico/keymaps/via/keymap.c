@@ -6,9 +6,19 @@
 void keyboard_post_init_user(void) {
     // Customise these values to desired behaviour
     debug_enable=true;
-    debug_matrix=true;
-    debug_keyboard=true;
+    // debug_matrix=true;
+    // debug_keyboard=true;
     //debug_mouse=true;
+}
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(1,KC_F13):
+        case LT(2,KC_APP):
+            return 100;
+        default:
+            return TAPPING_TERM;
+    }
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
