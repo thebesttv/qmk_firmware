@@ -8,6 +8,11 @@
 #    error "not a split keyboard"
 #endif
 
+#define PL GP5
+#define CE GP6
+#define CLK GP2
+#define MOUT GP4
+
 void matrix_init_custom(void) {
     pin_t slavePin = GP5;
     bool lsbFirst = false;
@@ -15,34 +20,29 @@ void matrix_init_custom(void) {
     uint16_t divisor = 10;
     spi_init();
     spi_start(slavePin, lsbFirst, mode, divisor);
+
+    setPinOutput(PL);
+    setPinOutput(CE);
 }
-
-#define PL GP5
-#define CE GP6
-#define CLK GP2
-#define MOUT GP4
-
-#define DELAY 1
 
 #define NUM 31
 #define NUM_8 4
 
 void readLocalKeyState(uint8_t layout_map[][2], matrix_row_t result_matrix[]) {
+    static uint8_t data[NUM_8];
+
     writePinLow(PL);
-    wait_us(DELAY);
 
     writePinHigh(PL);
-    wait_us(DELAY);
 
     writePinLow(CE);
 
-    static uint8_t data[NUM_8];
     spi_receive(data, 4);
 
     uint8_t *p = data;
-    for (int i = 0; i < NUM;) {
+    for (uint8_t i = 0; i < NUM;) {
         uint8_t x = *p++;
-        for (int j = 0; j < 8 && i < NUM; i++, j++) {
+        for (uint8_t j = 0; j < 8 && i < NUM; i++, j++) {
             uint8_t currentBit = x & (1 << (7 - j));
             if (currentBit == 0) {
                 uint8_t row = layout_map[i][0];
