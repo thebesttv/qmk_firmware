@@ -16,6 +16,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case LT(1,KC_F13):
         case LT(2,KC_APP):
             return 100;
+        // when pressing 'A' with left pinky, phrases like 'ar' or 'at' always take longer
+        case MT(MOD_LGUI,KC_A):
+            return TAPPING_TERM + 100;
         default:
             return TAPPING_TERM;
     }
