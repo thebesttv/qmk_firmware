@@ -31,6 +31,12 @@ enum layer_names {
 };
 
 #ifdef OLED_ENABLE
+bool caps_word_feature_on = false;
+
+void caps_word_set_user(bool active) {
+    caps_word_feature_on = active;
+}
+
 bool oled_task_user(void) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
@@ -55,6 +61,7 @@ bool oled_task_user(void) {
     oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+    oled_write_P(caps_word_feature_on ? PSTR("CAP_WORD ") : PSTR("         "), false);
 
     return false;
 }
