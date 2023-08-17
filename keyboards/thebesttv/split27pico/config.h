@@ -13,7 +13,7 @@
 #define TAPPING_TERM 200
 #define TAPPING_TERM_PER_KEY
 
-#define MASTER_LEFT // usb cable always connects to the left
+#define SPLIT_HAND_PIN GP22     // high left, low right
 
 #define SERIAL_USART_DRIVER SIOD0
 #define SERIAL_USART_FULL_DUPLEX   // Enable full duplex operation mode.
