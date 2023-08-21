@@ -1,0 +1,12 @@
+SRC += matrix.c spi_master.c
+CUSTOM_MATRIX = lite
+
+SPLIT_KEYBOARD = yes
+
+SERIAL_DRIVER = vendor
+
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306
+OLED_TRANSPORT = i2c
+
+CAPS_WORD_ENABLE = yes
