@@ -25,8 +25,8 @@ void matrix_init_custom(void) {
     setPinOutput(CE);
 }
 
-#define NUM 31
-#define NUM_8 4
+#define NUM 40
+#define NUM_8 5
 
 void readLocalKeyState(uint8_t layout_map[][2], matrix_row_t result_matrix[]) {
     static uint8_t data[NUM_8];
@@ -37,7 +37,7 @@ void readLocalKeyState(uint8_t layout_map[][2], matrix_row_t result_matrix[]) {
 
     writePinLow(CE);
 
-    spi_receive(data, 4);
+    spi_receive(data, NUM_8);
 
     uint8_t *p = data;
     for (uint8_t i = 0; i < NUM;) {
@@ -55,32 +55,63 @@ void readLocalKeyState(uint8_t layout_map[][2], matrix_row_t result_matrix[]) {
     writePinHigh(CE);
 }
 
-uint8_t LAYOUT_MAP_L[NUM][2] = {
-    { 4,  3}, { 4,  4}, { 4,  5},           //  0  1  2 (thumb)
-    { 3,  5}, { 2,  5}, { 1,  5}, { 0,  5}, //  3  4  5  6
-    {-1, -1}, {-1, -1}, {-1, -1}, {-1, -1}, //  7  8  9 10
-    { 0,  4}, { 1,  4}, { 2,  4}, { 3,  4}, // 11 12 13 14
-    { 3,  3}, { 2,  3}, { 1,  3}, { 0,  3}, // 15 16 17 18
-    { 0,  2}, { 1,  2}, { 2,  2}, { 3,  2}, // 19 20 21 22
-    { 3,  1}, { 2,  1}, { 1,  1}, { 0,  1}, // 23 24 25 26
-    { 0,  0}, { 1,  0}, { 2,  0}, { 3,  0}  // 27 28 29 30
-};
+uint8_t LAYOUT_MAP[NUM][2] = {
+    {-1, -1}, //  0
+    {-1, -1}, //  1
+    {-1, -1}, //  2
+    {-1, -1}, //  3
 
-uint8_t LAYOUT_MAP_R[NUM][2] = {
-    { 4,  2}, { 4,  1}, { 4,  0},           //  0  1  2 (thumb)
-    { 3,  0}, { 2,  0}, { 1,  0}, { 0,  0}, //  3  4  5  6
-    {-1, -1}, {-1, -1}, {-1, -1}, {-1, -1}, //  7  8  9 10
-    { 0,  1}, { 1,  1}, { 2,  1}, { 3,  1}, // 11 12 13 14
-    { 3,  2}, { 2,  2}, { 1,  2}, { 0,  2}, // 15 16 17 18
-    { 0,  3}, { 1,  3}, { 2,  3}, { 3,  3}, // 19 20 21 22
-    { 3,  4}, { 2,  4}, { 1,  4}, { 0,  4}, // 23 24 25 26
-    { 0,  5}, { 1,  5}, { 2,  5}, { 3,  5}  // 27 28 29 30
+    { 0,  6}, //  4
+    { 1,  6}, //  5
+    { 2,  6}, //  6
+
+    { 0,  5}, //  7
+    { 1,  5}, //  8
+    { 2,  5}, //  9
+    { 3,  5}, // 10
+
+    { 0,  4}, // 11
+    { 1,  4}, // 12
+    { 2,  4}, // 13
+    { 3,  4}, // 14
+
+    { 0,  3}, // 15
+    { 1,  3}, // 16
+    { 2,  3}, // 17
+    { 3,  3}, // 18
+
+    { 0,  2}, // 19
+    { 1,  2}, // 20
+    { 2,  2}, // 21
+    { 3,  2}, // 22
+
+    { 0,  1}, // 23
+    { 1,  1}, // 24
+    { 2,  1}, // 25
+    { 3,  1}, // 26
+
+    { 0,  0}, // 27
+    { 1,  0}, // 28
+    { 2,  0}, // 29
+    { 3,  0}, // 30
+
+    {-1, -1}, // 31
+    {-1, -1}, // 32
+
+    { 4,  2}, // 33
+    { 4,  3}, // 34
+    { 4,  5}, // 35
+    { 4,  4}, // 36
+    { 4,  1}, // 37
+    { 4,  0}, // 38
+
+    {-1, -1} // 39
 };
 
 bool matrix_scan_custom(matrix_row_t raw_matrix[]) {
     matrix_row_t current_matrix[MATRIX_ROWS] = {0};
 
-    readLocalKeyState(isLeftHand ? LAYOUT_MAP_L : LAYOUT_MAP_R, current_matrix);
+    readLocalKeyState(LAYOUT_MAP, current_matrix);
 
     bool changed = memcmp(raw_matrix, current_matrix, sizeof(current_matrix)) != 0;
     if (changed) memcpy(raw_matrix, current_matrix, sizeof(current_matrix));

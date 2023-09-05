@@ -5,10 +5,10 @@
 
 #define MATRIX_ROWS 10
 #define MATRIX_ROWS_PER_SIDE (MATRIX_ROWS / 2)
-#define MATRIX_COLS 6
+#define MATRIX_COLS 7
 
-#define MATRIX_ONBOARD_ROW_PINS { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-#define MATRIX_ONBOARD_COL_PINS { 0, 0, 0, 0, 0, 0 }
+#define MATRIX_ONBOARD_ROW_PINS { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+#define MATRIX_ONBOARD_COL_PINS { 0, 0, 0, 0, 0, 0, 0 }
 
 #define TAPPING_TERM 200
 #define TAPPING_TERM_PER_KEY
