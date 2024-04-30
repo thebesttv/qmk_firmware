@@ -1,0 +1,6 @@
+# 用于支持 VIA 的 QMK 键盘的规则，放在
+#   /etc/udev/rules.d/99-via.rules
+# 然后运行
+#   sudo udevadm control --reload-rules && sudo udevadm trigger
+
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="1a5a", ATTRS{idProduct}=="1235", MODE="0660", GROUP="thebesttv", TAG+="uaccess", TAG+="udev-acl"
