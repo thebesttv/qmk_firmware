@@ -1,0 +1,9 @@
+#+title: Split modular
+#+date: <2024-04-30 Tue 13:12>
+#+author: thebesttv
+
+** 编译
+
+#+begin_src bash
+  qmk compile -kb thebesttv/modular -km via
+#+end_src
