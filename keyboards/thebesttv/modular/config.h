@@ -15,6 +15,10 @@
 
 #define SPLIT_HAND_PIN GP22     // high left, low right
 
+// 防止在冷启动时，键盘一开始无法使用（在BIOS阶段不行，但进入OS后可以使用）
+// https://github.com/qmk/qmk_firmware/issues/19593#issuecomment-2090602198
+#define SPLIT_WATCHDOG_ENABLE
+
 #define SERIAL_USART_DRIVER SIOD0
 #define SERIAL_USART_FULL_DUPLEX   // Enable full duplex operation mode.
 #define SERIAL_USART_TX_PIN GP0     // USART TX pin
